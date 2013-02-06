@@ -8,6 +8,7 @@
                  [ring-server "0.2.5"]                 
                  [com.taoensso/timbre "1.2.0"]
                  [com.taoensso/tower "1.2.0"]
+                 [cheshire "5.0.1"]
                  [markdown-clj "0.9.19"]
                  [ring-json-params "0.1.3"]
                  [midje "1.5-alpha9"]]  

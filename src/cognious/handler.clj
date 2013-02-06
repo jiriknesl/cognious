@@ -15,7 +15,9 @@
    an app server such as Tomcat
    put any initialization code here"
   []
-  (send-off state/state state/load-stored-state)
+  (println "INIT")
+  (swap! state/state state/load-stored-state)
+  (println "AFTER INIT")
   (println @state/state)
   (println "cognious started successfully...")
   (println "yes I tried"))
