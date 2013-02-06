@@ -15,7 +15,8 @@
    "this is the story of cognious... work in progress"))
 
 (defn query-page [params]
-  (analytics/get-experiments @state/state (params :user) (params :experimentName)))
+  (println params)
+  (analytics/get-experiments @state/state (params :user) (params :experimentName) {} (analytics/get-time-params params)))
 
 (defroutes home-routes 
   (GET "/" [] (home-page))

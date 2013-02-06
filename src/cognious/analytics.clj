@@ -7,6 +7,9 @@
 (defn get-params [params-kv]
   (apply merge (map (fn [item] {(keyword (subs (item 0) 6)) (item 1)}) (filter is-param? params-kv))))
 
+(defn get-time-params [params]
+	(apply merge (map #((println %) {(% 0) (Integer. (% 1))}) (select-keys params [:from :to]))))
+
 (defn get-experiments 
 	([state user-id] (get-experiments state user-id "" {}))
 	([state user-id experiment-name] (get-experiments state user-id experiment-name {}))

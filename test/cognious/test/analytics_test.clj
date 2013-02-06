@@ -23,3 +23,8 @@
 (fact
   "can filter users by timestamp"
   (count (get-experiments (state) "jirka" "" {} {:from 100 :to 120})) => 2)
+
+(fact
+	"get-time-params parses timestamps to ingegers or nils"
+	(get-time-params {:a "foo" :b 123 :from "444" :to "555"}) => {:from 444 :to 555}
+	)
