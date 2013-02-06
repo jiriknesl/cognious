@@ -14,10 +14,7 @@
 
 (fact
 	(dosync
-		(println "BEFORE STATE CHANGE IN TEST")
-	    (swap! state (fn [old-state] (println "OLD") (println old-state) '("test")))
-	    (println "AFTER STATE CHANGE IN TEST")
-	    (println @state)
+	    (swap! state (fn [old-state] '("test")))
 	    (let [response (app (request :get "/state"))]
 	      (:body response))) => "[\"test\"]")
 
