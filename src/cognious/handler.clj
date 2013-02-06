@@ -15,7 +15,7 @@
    an app server such as Tomcat
    put any initialization code here"
   []
-  (send-off state/state (fn [old-state] (load-file "resources/private/storage.clj")))
+  (send-off state/state state/load-stored-state)
   (println @state/state)
   (println "cognious started successfully...")
   (println "yes I tried"))
