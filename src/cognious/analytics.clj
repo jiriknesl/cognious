@@ -2,13 +2,12 @@
 (use 'clojure.data)
 
 (defn starts-with-param? [name]
-	(println name)
-  (.startsWith (name 0) "param."))
+  (.startsWith name "param."))
 
-(defn is-param? [name]
+(defn is-param? [input]
 	(case (keyword? input)
-		true (starts-with-param (subs (str input) 1))
-		false (starts-with-param input)
+		true (starts-with-param? (subs (str input) 1))
+		false (starts-with-param? input)
 	)
 )
 
@@ -20,7 +19,7 @@
 )
 
 (defn get-params [params-kv]
-  (merge {} (apply merge (map (fn [item] {(dotname->paramname (item 0)) (item 1)}) (filter is-param? params-kv)))))
+  (merge {} (apply merge (map (fn [item] {(dotname->paramname (item 0)) (item 1)}) (filter #(is-param? (% 0)) params-kv)))))
 
 (defn get-time-params [params]
 	(merge {} (apply merge (map (fn [row] {(row 0) (Integer. (row 1))}) (select-keys params [:from :to])))))
