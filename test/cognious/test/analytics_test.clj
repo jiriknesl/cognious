@@ -26,5 +26,5 @@
 
 (fact
 	"get-time-params parses timestamps to ingegers or nils"
-	(get-time-params {:a "foo" :b 123 :from "444" :to "555"}) => {:from 444 :to 555}
+	(get-time-params {:a "foo" :b 123 :from "444" :to "556"}) => {:from 444 :to 556}
 	)
