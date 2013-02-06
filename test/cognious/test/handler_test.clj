@@ -37,5 +37,5 @@
 	"REST api to query by named params"
 	(dosync
 	    (swap! state (fn [old-state] test-state))
-	    (let [response (app (request :get "/query/jirka/Def?params.foo=bar"))]
+	    (let [response (app (request :get "/query/jirka/Def?param.foo=bar"))]
 	      (count (parse-string (:body response)))))  => 1)
