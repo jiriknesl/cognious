@@ -20,6 +20,18 @@
 	(get-params {"param.foo" "foovalue" "param.bar" "barvalue" "a" 1 "b" 2}) => {:foo "foovalue" :bar "barvalue"}
 )
 
+
+(fact
+	"can parse dot-notation params from Compojure"
+	(get-params {:param.foo "foovalue" :param.bar "barvalue" "a" 1 "b" 2}) => {:foo "foovalue" :bar "barvalue"}
+)
+
+(fact
+	"can quitely convert to param name"
+	(dotname->paramname "param.bar") => :bar 
+	(dotname->paramname :param.bar) => :bar 
+)
+
 (fact
   "can filter users by timestamp"
   (count (get-experiments (state) "jirka" "" {} {:from 100 :to 120})) => 2)
@@ -28,3 +40,5 @@
 	"get-time-params parses timestamps to ingegers or nils"
 	(get-time-params {:a "foo" :b 123 :from "444" :to "556"}) => {:from 444 :to 556}
 	)
+
+

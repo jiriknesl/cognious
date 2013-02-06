@@ -1,11 +1,26 @@
 (ns cognious.analytics)
 (use 'clojure.data)
 
-(defn is-param? [name]
+(defn starts-with-param? [name]
+	(println name)
   (.startsWith (name 0) "param."))
 
+(defn is-param? [name]
+	(case (keyword? input)
+		true (starts-with-param (subs (str input) 1))
+		false (starts-with-param input)
+	)
+)
+
+(defn dotname->paramname [input]
+	(case (keyword? input)
+		true (keyword (subs (str input) 7))
+		false (keyword (subs (str input) 6))
+	)
+)
+
 (defn get-params [params-kv]
-  (apply merge (map (fn [item] {(keyword (subs (item 0) 6)) (item 1)}) (filter is-param? params-kv))))
+  (merge {} (apply merge (map (fn [item] {(dotname->paramname (item 0)) (item 1)}) (filter is-param? params-kv)))))
 
 (defn get-time-params [params]
 	(merge {} (apply merge (map (fn [row] {(row 0) (Integer. (row 1))}) (select-keys params [:from :to])))))

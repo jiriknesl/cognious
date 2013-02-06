@@ -1,4 +1,4 @@
- (ns cognious.test.handler
+ (ns cognious.test.handler-test
    (:use midje.sweet
          ring.mock.request  
          cognious.state
@@ -19,12 +19,14 @@
 	      (:body response))) => "[\"test\"]")
 
 (fact
+	"REST api to query by user and experiment name"
 	(dosync
 	    (swap! state (fn [old-state] test-state))
 	    (let [response (app (request :get "/query/jirka/Def"))]
 	      (count (parse-string (:body response)))))  => 2)
 
 (fact
+	"REST api to query by time info"
 	(dosync
 	    (swap! state (fn [old-state] test-state))
 	    (let [response (app (request :get "/query/jirka/Def?from=115&to=120"))]
@@ -32,6 +34,7 @@
 
 
 (fact
+	"REST api to query by named params"
 	(dosync
 	    (swap! state (fn [old-state] test-state))
 	    (let [response (app (request :get "/query/jirka/Def?params.foo=bar"))]
