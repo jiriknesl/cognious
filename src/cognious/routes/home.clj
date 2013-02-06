@@ -2,7 +2,8 @@
   (:use compojure.core hiccup.element)
   (:require [cognious.views.layout :as layout]
             [cognious.util :as util]
-            [noir.response :as response]))
+            [noir.response :as response]
+            [cognious.state :as state]))
 
 (defn home-page [] 
   (layout/common
@@ -14,4 +15,5 @@
 
 (defroutes home-routes 
   (GET "/" [] (home-page))
-  (GET "/about" [] (response/json {:ano "ne"})))
+  (GET "/about" [] (response/json {:ano "ne"}))
+  (GET "/state" [] (response/json @state/state)))

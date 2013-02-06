@@ -2,7 +2,8 @@
   (:use cognious.routes.home
         compojure.core)  
   (:require [noir.util.middleware :as middleware]
-            [compojure.route :as route]))
+            [compojure.route :as route]
+            [cognious.state :as state]))
 
 (defroutes app-routes  
   (route/resources "/")
@@ -14,6 +15,8 @@
    an app server such as Tomcat
    put any initialization code here"
   []
+  (send-off state/state (fn [old-state] (load-file "resources/private/storage.clj")))
+  (println @state/state)
   (println "cognious started successfully...")
   (println "yes I tried"))
 
