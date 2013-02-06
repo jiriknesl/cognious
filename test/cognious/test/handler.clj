@@ -23,3 +23,9 @@
 	    (swap! state (fn [old-state] test-state))
 	    (let [response (app (request :get "/query/jirka/Def"))]
 	      (count (parse-string (:body response)))))  => 2)
+
+(fact
+	(dosync
+	    (swap! state (fn [old-state] test-state))
+	    (let [response (app (request :get "/query/jirka/Def?from=115&to=120"))]
+	      (count (parse-string (:body response)))))  => 1)
