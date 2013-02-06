@@ -1,15 +1,15 @@
-; (ns cognious.test.handler
-;   (:use clojure.test
-;         ring.mock.request  
-;         cognious.handler))
+ (ns cognious.test.handler
+   (:use midje.sweet
+         ring.mock.request  
+         cognious.state
+         cognious.handler))
 
-; (deftest test-app
-;   (testing "main route"
-;     (let [response (app (request :get "/"))]
-;       (is (= (:status response) 200))
-;       (is (= (:body response) 
-;              "<!DOCTYPE html>\n<html><head><title>Welcome to guestbook</title><link href=\"/css/screen.css\" rel=\"stylesheet\" type=\"text/css\"></head><body><h1>Hello World!</h1></body></html>"))))
-  
-;   (testing "not-found route"
-;     (let [response (app (request :get "/invalid"))]
-;       (is (= (:status response) 404)))))
+  	(fact
+	  	(dosync
+		    (send state (fn [old-state] '("test")))
+		    (let [response (app (request :get "/state"))]
+		      (:body response))) => "[\"test\"]"
+		    
+	  	)
+
+
